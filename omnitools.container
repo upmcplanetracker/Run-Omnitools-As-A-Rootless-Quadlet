@@ -1,0 +1,28 @@
+[Unit]
+Description=Omni-tools container
+After=network-online.target
+
+[Container]
+Image=docker.io/iib0011/omni-tools:latest
+ContainerName=omni-tools
+AutoUpdate=registry
+
+# NETWORK CONFIGURATION
+# Using host networking means the application will use the port defined in your nginx config.
+# IMPORTANT: Ensure the port in 'default.conf' does not conflict with other services.
+Network=host
+
+# Environment Variables
+Environment=TZ=America/New_York
+
+# STORAGE: Using %h for portability. 
+# Ensure these files exist before starting the container.  Edit default.conf for your situation.
+Volume=%h/omnitools/default.conf:/etc/nginx/conf.d/default.conf:Z
+Volume=%h/omnitools/.htpasswd:/etc/nginx/.htpasswd:Z
+
+[Service]
+Restart=on-failure
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

@@ -4,7 +4,7 @@ After=network-online.target
 
 [Container]
 Image=docker.io/iib0011/omni-tools:latest
-ContainerName=omni-tools
+ContainerName=omnitools
 AutoUpdate=registry
 
 # NETWORK CONFIGURATION
